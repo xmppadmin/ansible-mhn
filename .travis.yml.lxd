@@ -7,8 +7,11 @@ rvm:
 env:
 #  - distribution: centos
 #    version: 6
+## travis/centos7: fail to import flask even if installed dixit correctly, https://travis-ci.org/juju4/ansible-mhn/jobs/178398492#L8431 (ok in local kitchen/lxd)
 #  - distribution: centos
 #    version: 7
+  - distribution: ubuntu
+    version: 18.04
   - distribution: ubuntu
     version: 16.04
 ## travis/trusty mongodb issue (works inside local kitchen test)
@@ -17,7 +20,7 @@ env:
 #  - distribution: ubuntu
 #    version: 12.04
 #  - distribution: alpine
-#    version: 3.4
+#    version: 3.7
 #  - distribution: debian
 #    version: jessie
 

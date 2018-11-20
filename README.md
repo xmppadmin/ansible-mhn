@@ -3,8 +3,9 @@
 # MHN Server ansible role
 
 Mostly a conversion of the shell scripts of https://github.com/threatstream/mhn to ansible config
-https://github.com/threatstream/mhn/
-http://www.505forensics.com/honeypot-data-part-1-mongodb-elasticsearch-mhn/
+
+* https://github.com/threatstream/mhn/
+* http://www.505forensics.com/honeypot-data-part-1-mongodb-elasticsearch-mhn/
 
 As stated in MHN FAQ, you need proper updates and hardening for those systems. (other roles)
 
@@ -15,11 +16,13 @@ It was tested on the following versions:
  * 2.0
  * 2.1
  * 2.2
+ * 2.5
 
 ### Operating systems
 
 Tested with Ubuntu 14.04, 16.04 and CentOS 7
 Ubuntu 12.04 is supported in official MHN scripts but with libev compiled from source (pyev require 4.15+, precise only has 4.11). In the same way, Centos6 requires source install of libev and python 2.7. Both are not included in this role currently.
+Initial testing for Ubuntu 18.04.
 
 ## Example Playbook
 
@@ -29,11 +32,11 @@ For example
 ```
 - hosts: mhnserver
   roles:
-      - maxmind
-      - mhn
+      - juju4.maxmind
+      - juju4.mhn
 - hosts: mhnclient
   roles:
-    - { role: mhnclient, mhnclient_dionaea: true, mhnclient_glastopf: true, mhnclient_wordpot: true }
+    - { role: juju4.mhnclient, mhnclient_dionaea: true, mhnclient_glastopf: true, mhnclient_wordpot: true }
 ```
 
 If you use kippo, after first execution, you must change ssh port in your inventory file (manual inventory or vagrant .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory) or Vagrantfile (config.ssh.port) else you will have no connection. Eventually, you can override it from ansible command line (-e).
@@ -150,6 +153,9 @@ You can use geerlingguy.logstash role to set it up
 * Alternatives
 http://dtag-dev-sec.github.io/mediator/feature/2016/03/11/t-pot-16.03.html
 
+* Ubuntu bionic not supported - cursor issue.
+bionic has mongodb 3.6 in official repository and mongodb 3.4 community repository is not available.
+
 ## Continuous integration
 
 This role has a travis basic test (for github), more advanced with kitchen and also a Vagrantfile (test/vagrant).
@@ -157,14 +163,14 @@ Default kitchen config (.kitchen.yml) is lxd-based, while (.kitchen.vagrant.yml)
 
 Once you ensured all necessary roles are present, You can test with:
 ```
-$ cd /path/to/roles/mhn
+$ cd /path/to/roles/juju4.mhn
 $ kitchen verify
 $ kitchen login
 $ KITCHEN_YAML=".kitchen.vagrant.yml" kitchen verify
 ```
 or
 ```
-$ cd /path/to/roles/mhn/test/vagrant
+$ cd /path/to/roles/juju4.mhn/test/vagrant
 $ vagrant up
 $ vagrant ssh
 ```

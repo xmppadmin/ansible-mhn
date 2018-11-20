@@ -4,8 +4,13 @@
   vars:
     - MHN_EMAIL: root@localhost
     - MHN_PASS: root@localhost
+    - mhn_do_elk: true
     - mhn_no_log: false
   roles:
+    - geerlingguy.java
+    - geerlingguy.elasticsearch
+    - geerlingguy.logstash
+    - geerlingguy.kibana
     - juju4.maxmind
     - juju4.mhn
 
